@@ -38,9 +38,9 @@ public class TaskManagementSystemApplication {
         User user1 = new User(1, "First User");
         User user2 = new User(2, "Second User");
         User user3 = new User(3, "Third User");
-        userService.addUser(user1);
-        userService.addUser(user2);
-        userService.addUser(user3);
+        System.out.println(userService.addUser(user1));
+        System.out.println(userService.addUser(user2));
+        System.out.println(userService.addUser(user3));
         for (User user : userService.getUsers().values()) {
             System.out.println(user);
         }

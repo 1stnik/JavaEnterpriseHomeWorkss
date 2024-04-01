@@ -23,8 +23,7 @@ public class TaskController {
 
     @PostMapping("/add_task")
     public String addTaskToNotAssignedTasksList(@RequestBody Task task) {
-        taskService.addTaskToNotAssignedTasksList(task);
-        return "Task added successfully!";
+        return taskService.addTaskToNotAssignedTasksList(task);
     }
 
     @GetMapping("/get_not_assigned_tasks")
@@ -50,12 +49,14 @@ public class TaskController {
     }
 
     @GetMapping("/find_by_status/{status}")
-    public List<Task> findTaskByStatus(@RequestBody Status status) {
+    public List<Task> findTaskByStatus(@PathVariable("status") String statusStr) {
+        Status status = Status.fromValue(statusStr);
         return taskService.findTaskByStatus(status);
     }
 
     @GetMapping("/find_by_priority/{priority}")
-    public List<Task> findTaskByPriority(@RequestBody Priority priority) {
+    public List<Task> findTaskByPriority(@PathVariable("priority") String priorityStr) {
+        Priority priority = Priority.fromValue(priorityStr);
         return taskService.findTaskByPriority(priority);
     }
 

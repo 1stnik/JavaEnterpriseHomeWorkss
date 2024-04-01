@@ -23,20 +23,25 @@ public class UserController {
 
     @PostMapping(path = "/add_user")
     public String addUser(@RequestBody User user) {
-        userService.addUser(user);
-        return "User added successfully!";
+        return userService.addUser(user);
     }
 
 
     @DeleteMapping("/remove_user/{userId}")
     public String removeUser(@PathVariable int userId) {
-        userService.removeUser(userService.getUserById(userId));
-        return "User removed successfully!";
+        return userService.removeUser(userService.getUserById(userId));
     }
 
 
     @GetMapping("/list_of_users")
     public Map<Integer, User> getUsers() {
         return userService.getUsers();
+    }
+
+
+    // Test method for RestTemplate:
+    @GetMapping(path = "/testRestTemplate")
+    public String restTemplateTestMethod() {
+        return "String from Rest Template Test Method!";
     }
 }

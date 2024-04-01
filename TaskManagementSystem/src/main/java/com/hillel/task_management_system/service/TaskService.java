@@ -3,6 +3,9 @@ package com.hillel.task_management_system.service;
 
 import com.hillel.task_management_system.enums.Priority;
 import com.hillel.task_management_system.enums.Status;
+import com.hillel.task_management_system.exceptions.TaskDoesntExistException;
+import com.hillel.task_management_system.exceptions.TaskExistsException;
+import com.hillel.task_management_system.exceptions.TaskNullException;
 import com.hillel.task_management_system.model.Task;
 import com.hillel.task_management_system.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +26,15 @@ public class TaskService {
 
     private final Map<User, List<Task>> tasks = new HashMap<>();
 
-    public void addTaskToNotAssignedTasksList(Task task) {
-        if (task != null) {
+    public String addTaskToNotAssignedTasksList(Task task) {
+        if (task == null) {
+            throw new TaskNullException("Error: Can't add task to not assigned tasks list. Task is NULL");
+        } else if (notAssignedTasks.contains(task)) {
+            throw new TaskExistsException("Error: Can't add task to not assigned tasks list. Task has already exist!");
+        }else {
             notAssignedTasks.add(task);
-        } else {
-            System.out.println("Error: Can't add task to not assigned tasks list. Task is null");
+            return "Task has been added successfully!";
         }
-
     }
 
     public List<Task> showNotAssignedTasks() {
